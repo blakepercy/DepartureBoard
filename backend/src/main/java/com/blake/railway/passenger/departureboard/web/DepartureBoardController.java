@@ -1,0 +1,28 @@
+package com.blake.railway.passenger.departureboard.web;
+
+import com.blake.railway.passenger.departureboard.model.LdbService;
+import com.thalesgroup.rtti._2017_10_01.ldb.StationBoardResponseType;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class DepartureBoardController
+{
+    private LdbService ldbService;
+
+    @Autowired
+    public void setLdbService(LdbService ldbService)
+    {
+        this.ldbService = ldbService;
+    }
+
+    @RequestMapping("/departures")
+    @CrossOrigin(origins = "*")
+    public StationBoardResponseType getDepartures()
+    {
+        return ldbService.getDepartureBoard();
+    }
+}
