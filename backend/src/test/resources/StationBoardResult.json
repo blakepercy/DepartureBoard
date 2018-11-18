@@ -1,0 +1,111 @@
+{
+  "getStationBoardResult": {
+    "generatedAt": 1541352251887,
+    "locationName": "Matlock Bath",
+    "crs": "MTB",
+    "filterLocationName": null,
+    "filtercrs": null,
+    "filterType": null,
+    "nrccMessages": null,
+    "platformAvailable": true,
+    "areServicesAvailable": null,
+    "trainServices": {
+      "service": [
+        {
+          "sta": null,
+          "eta": null,
+          "std": "17:26",
+          "etd": "On time",
+          "platform": "1",
+          "operator": "East Midlands Trains",
+          "operatorCode": "EM",
+          "isCircularRoute": null,
+          "isCancelled": null,
+          "filterLocationCancelled": null,
+          "serviceType": "TRAIN",
+          "length": null,
+          "detachFront": null,
+          "isReverseFormation": null,
+          "cancelReason": null,
+          "delayReason": null,
+          "serviceID": "hZOfm+WeOmctQ9iyEF1nqQ==",
+          "adhocAlerts": null,
+          "rsid": "EM949200",
+          "origin": {
+            "location": [
+              {
+                "locationName": "Nottingham",
+                "crs": "NOT",
+                "via": null,
+                "futureChangeTo": null,
+                "assocIsCancelled": null
+              }
+            ]
+          },
+          "destination": {
+            "location": [
+              {
+                "locationName": "Matlock",
+                "crs": "MAT",
+                "via": null,
+                "futureChangeTo": null,
+                "assocIsCancelled": null
+              }
+            ]
+          },
+          "currentOrigins": null,
+          "currentDestinations": null,
+          "formation": null
+        },
+        {
+          "sta": null,
+          "eta": null,
+          "std": "17:44",
+          "etd": "On time",
+          "platform": "1",
+          "operator": "East Midlands Trains",
+          "operatorCode": "EM",
+          "isCircularRoute": null,
+          "isCancelled": null,
+          "filterLocationCancelled": null,
+          "serviceType": "TRAIN",
+          "length": null,
+          "detachFront": null,
+          "isReverseFormation": null,
+          "cancelReason": null,
+          "delayReason": null,
+          "serviceID": "G5yFgy930D2XOYFkjb5hpQ==",
+          "adhocAlerts": null,
+          "rsid": "EM949600",
+          "origin": {
+            "location": [
+              {
+                "locationName": "Matlock",
+                "crs": "MAT",
+                "via": null,
+                "futureChangeTo": null,
+                "assocIsCancelled": null
+              }
+            ]
+          },
+          "destination": {
+            "location": [
+              {
+                "locationName": "Nottingham",
+                "crs": "NOT",
+                "via": null,
+                "futureChangeTo": null,
+                "assocIsCancelled": null
+              }
+            ]
+          },
+          "currentOrigins": null,
+          "currentDestinations": null,
+          "formation": null
+        }
+      ]
+    },
+    "busServices": null,
+    "ferryServices": null
+  }
+}
