@@ -1,9 +1,9 @@
 # DepartureBoard
-This is a Java, Spring Boot and React web app that uses the National Rail Enquiries API to create a Departure Board.
+This is a Java, Spring Boot and React web app that uses the National Rail Enquiries API to create a UK Railway Departure Board:
 
 ![Departure Board](frontend/src/images/departureboard.png)
 
-## To start the sack-end from an IDE
+## To start the back-end from an IDE
 Navigate to the 'departureboard' directory and then run:
 ```bash
 mvn clean compile
@@ -20,7 +20,7 @@ Navigate to the 'frontend' directory and then run:
 yarn start
 ```
 
-## To start the entire application from the JAR file
+## To start the entire application from the compiled JAR file
 Create the JAR file for the application:
 ```bash
 mvn package
