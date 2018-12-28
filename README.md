@@ -1,4 +1,7 @@
 # DepartureBoard
+This is a Java, Spring Boot and React web app that uses the National Rail Enquiries API to create a Departure Board.
+
+![Departure Board](https://www.dropbox.com/s/9wgl4m74gpa689j/departureboard.png?dl=1 "Departure Board")
 
 ## To start the sack-end from an IDE
 Navigate to the 'departureboard' directory and then run:
