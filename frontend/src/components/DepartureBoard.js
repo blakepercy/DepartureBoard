@@ -18,7 +18,8 @@ class DepartureBoard extends Component
 
   componentDidMount() {
     console.log(process.env);
-    fetch('http://localhost:' + BACKEND_PORT + '/departures')
+    // fetch('http://localhost:' + BACKEND_PORT + '/departures')
+    fetch('https://railwaydepartures.herokuapp.com/departures')
       .then(response => response.json())
       .then(data => {
         this.setState({ locationName: <div className="Location-header"><h2>{data.getStationBoardResult.locationName}</h2></div> });
