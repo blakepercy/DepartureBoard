@@ -13,7 +13,8 @@ class DepartureBoard extends Component
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/departures')
+    // fetch('http://localhost:8080/departures')
+    fetch('http://localhost:' + process.env.PORT + '/departures')
       .then(response => response.json())
       .then(data => {
         this.setState({ locationName: <div className="Location-header"><h2>{data.getStationBoardResult.locationName}</h2></div> });
