@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const BACKEND_PORT=process.env.REACT_APP_PORT || 8080;
+// const BACKEND_PORT=process.env.REACT_APP_PORT || 8080;
 
 class DepartureBoard extends Component
 {
@@ -19,7 +19,8 @@ class DepartureBoard extends Component
   componentDidMount() {
     console.log(process.env);
     // fetch('http://localhost:' + BACKEND_PORT + '/departures')
-    fetch('https://railwaydepartures.herokuapp.com/departures')
+    // fetch('https://railwaydepartures.herokuapp.com/departures')
+    fetch('/departures')
       .then(response => response.json())
       .then(data => {
         this.setState({ locationName: <div className="Location-header"><h2>{data.getStationBoardResult.locationName}</h2></div> });
