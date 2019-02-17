@@ -1,0 +1,22 @@
+.Centre-align {
+  text-align: center;
+}
+
+.Left-align {
+  text-align: left;
+}
+
+.Left-padding {
+  padding-left: 10%;
+}
+
+.Top-padding {
+  padding-top: 3%;
+}
+
+.Location-header {
+  background-color: #222;
+  height: 70px;
+  padding: 5px;
+  color: seagreen;
+}
