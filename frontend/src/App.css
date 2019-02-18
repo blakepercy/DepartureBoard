@@ -16,7 +16,14 @@
 
 .Location-header {
   background-color: #222;
-  height: 70px;
+  height: 60px;
+  padding: 5px;
+  color: seagreen;
+}
+
+.Clock {
+  background-color: #222;
+  height: 20px;
   padding: 5px;
   color: seagreen;
 }
