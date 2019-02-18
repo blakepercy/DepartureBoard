@@ -4,16 +4,24 @@ import nreLogo from './images/NRE_Powered_logo.png';
 
 import './App.css';
 
+function Logo(props) {
+  return (
+      <div className="Left-align Left-padding Top-padding">
+        <a href="http://www.nationalrail.co.uk/" target="_blank"
+           rel="noopener noreferrer">
+          <img src={nreLogo} height={props.height} alt={"National Rail"
+          + " Enquiries"}/>
+        </a>
+      </div>
+  );
+}
+
 class App extends Component {
   render() {
     return (
         <div className="Centre-align">
-          <DepartureBoard />
-          <div className="Left-align Left-padding Top-padding">
-            <a href="http://www.nationalrail.co.uk/" target="_blank" rel="noopener noreferrer">
-              <img src={nreLogo} height={40} alt={"National Rail Enquiries"} />
-            </a>
-          </div>
+          <DepartureBoard/>
+          <Logo height={40}/>
         </div>
     );
   }

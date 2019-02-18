@@ -14,6 +14,14 @@ class DepartureBoard extends Component
         };
   }
 
+  StartingLocation(props) {
+    return (
+        <div className="Location-header">
+          <h2>{props.location}</h2>
+        </div>
+    );
+  }
+
   componentDidMount() {
     console.log(process.env);
 
@@ -27,7 +35,7 @@ class DepartureBoard extends Component
     fetch(host + "/departures")
       .then(response => response.json())
       .then(data => {
-        this.setState({ locationName: <div className="Location-header"><h2>{data.getStationBoardResult.locationName}</h2></div> });
+        this.setState({ locationName: <this.StartingLocation location={data.getStationBoardResult.locationName} />});
 
         let services = null;
 
