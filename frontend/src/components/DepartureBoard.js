@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Clock from './Clock';
+import StartingLocation from "./StartingLocation";
 
 const BACKEND_PORT = process.env.REACT_APP_PORT || 8080;
 
@@ -11,14 +12,6 @@ class DepartureBoard extends Component {
           locationName: null,
           trainServices: [],
         };
-  }
-
-  StartingLocation(props) {
-    return (
-        <div>
-          <h2>{props.location}</h2>
-        </div>
-    );
   }
 
   formatServices(rawServices)
@@ -55,8 +48,7 @@ class DepartureBoard extends Component {
     .then(response => response.json())
     .then(data => {
       this.setState({
-        locationName: <this.StartingLocation
-            location={data.getStationBoardResult.locationName}/>
+        locationName: <StartingLocation location={data.getStationBoardResult.locationName} />
       });
 
       // Determine if trains or buses are running
