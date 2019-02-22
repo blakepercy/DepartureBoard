@@ -54,7 +54,7 @@ class DepartureBoard extends Component {
                 <td className="Small-column">{departureTime}</td>
                 <td className="Medium-column">{destination}</td>
                 <td className="Small-column">{platform}</td>
-                <td className="Medium-column">{punctuality}</td>
+                <td className="Small-column">{punctuality}</td>
                 <td className="Large-column">{delayReason}</td>
               </tr>
             </table>
