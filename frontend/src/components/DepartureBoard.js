@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Clock from './Clock';
 import StartingLocation from "./StartingLocation";
 import DepartureBoardClient from './DepartureBoardClient';
+import uuid from "uuid";
 
 class DepartureBoard extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class DepartureBoard extends Component {
       });
       let delayReason = service.delayReason;
       return (
-          <div className="Left-align Left-padding">
+          <div className="Left-align Left-padding" key={uuid.v4()}>
             <h3>
               {departureTime} - {type} to {destination} from
               platform {platform} is expected {punctuality}. {delayReason}
@@ -103,13 +104,25 @@ class DepartureBoard extends Component {
   }
 
   updateLocation() {
-    let location = "New Location";
+    let location = "";
+    if (this.state.crs === "MTB")
+    {
+      location = "DBY";
+    }
+    else {
+      location = "MTB";
+    }
 
     console.log("Updating Location: ", location);
     this.state.startingLocation.updateLocation(location);
 
     this.setState({
       locationName: this.state.startingLocation.render()
+    });
+
+    this.setState({
+      crs: location,
+      trainServices: "Loading..."
     });
   }
 
