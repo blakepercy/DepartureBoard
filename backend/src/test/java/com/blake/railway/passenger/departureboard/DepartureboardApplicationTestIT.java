@@ -30,7 +30,7 @@ public class DepartureboardApplicationTestIT
     @Test
     public void getDepartureBoardTest() throws Exception
     {
-        mockMvc.perform(get("/departures"))
+        mockMvc.perform(get("/departures/MTB"))
                .andDo(print())
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.getStationBoardResult.crs").value(equalTo("MTB")));

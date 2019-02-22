@@ -6,24 +6,57 @@
   text-align: left;
 }
 
+.Right-align {
+  text-align: right;
+}
+
 .Left-padding {
   padding-left: 10%;
 }
 
+.Right-padding {
+  padding-right: 2%;
+}
+
 .Top-padding {
-  padding-top: 3%;
+  padding-top: 5%;
+}
+
+.Padding {
+  padding: 10px;
 }
 
 .Location-header {
   background-color: #222;
-  height: 60px;
-  padding: 5px;
+  height: 105px;
+  padding: 2px;
   color: seagreen;
 }
 
-.Clock {
-  background-color: #222;
-  height: 20px;
-  padding: 5px;
-  color: seagreen;
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.Small-column {
+  width: 5%;
+}
+
+.Medium-column {
+  width: 20%;
+}
+
+.Large-column {
+  width: 30%;
 }
