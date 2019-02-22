@@ -20,3 +20,32 @@
   padding: 2px;
   color: seagreen;
 }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  padding-left: 10%;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.Small-column {
+  width: 5%;
+}
+
+.Medium-column {
+  width: 20%;
+}
+
+.Large-column {
+  width: 30%;
+}

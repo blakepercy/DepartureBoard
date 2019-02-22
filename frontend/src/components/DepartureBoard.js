@@ -48,11 +48,16 @@ class DepartureBoard extends Component {
       });
       let delayReason = service.delayReason;
       return (
-          <div className="Left-align Left-padding" key={uuid.v4()}>
-            <h3>
-              {departureTime} - {type} to {destination} from
-              platform {platform} is expected {punctuality}. {delayReason}
-            </h3>
+          <div key={uuid.v4()}>
+            <table>
+              <tr>
+                <td className="Small-column">{departureTime}</td>
+                <td className="Medium-column">{destination}</td>
+                <td className="Small-column">{platform}</td>
+                <td className="Medium-column">{punctuality}</td>
+                <td className="Large-column">{delayReason}</td>
+              </tr>
+            </table>
           </div>
       )
     });
