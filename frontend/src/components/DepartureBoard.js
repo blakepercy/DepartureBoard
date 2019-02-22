@@ -101,7 +101,9 @@ class DepartureBoard extends Component {
     clearInterval(this.timerID);
   }
 
-  updateLocation(location) {
+  updateLocation() {
+    let location = "New Location";
+
     console.log("Updating Location: ", location);
     this.state.startingLocation.updateLocation(location);
 

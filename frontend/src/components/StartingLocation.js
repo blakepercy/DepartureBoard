@@ -4,14 +4,7 @@ class StartingLocation extends React.Component {
   constructor(props){
     super(props);
     this.location = props.location;
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
+    this.updateCallback = props.update;
   }
 
   updateLocation(location) {
@@ -20,7 +13,7 @@ class StartingLocation extends React.Component {
 
   render() {
     return (
-        <div onClick={this.props.update.bind(this, "hello")}>
+        <div onClick={this.updateCallback}>
           <h2>{this.location}</h2>
         </div>
     );
