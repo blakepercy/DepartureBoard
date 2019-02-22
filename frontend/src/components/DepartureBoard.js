@@ -40,11 +40,13 @@ class DepartureBoard extends Component {
   {
     let head = (
         <thead>
-        <th className="Small-column">Planned</th>
-        <th className="Medium-column">Destination</th>
-        <th className="Small-column">Platform</th>
-        <th className="Small-column">Expected</th>
-        <th className="Large-column">Comments</th>
+          <tr>
+            <th className="Small-column">Planned</th>
+            <th className="Medium-column">Destination</th>
+            <th className="Small-column Centre-align">Platform</th>
+            <th className="Small-column">Expected</th>
+            <th className="Large-column">Comments</th>
+          </tr>
         </thead>
     );
 
@@ -57,26 +59,24 @@ class DepartureBoard extends Component {
       });
       let delayReason = service.delayReason;
       return (
-          <div key={uuid.v4()}>
-            <table>
-              <tbody>
-                <tr>
-                  <td className="Small-column">{departureTime}</td>
-                  <td className="Medium-column">{destination}</td>
-                  <td className="Small-column">{platform}</td>
-                  <td className="Small-column">{punctuality}</td>
-                  <td className="Large-column">{delayReason}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <tbody key={uuid.v4()}>
+            <tr>
+              <td className="Small-column">{departureTime}</td>
+              <td className="Medium-column">{destination}</td>
+              <td className="Small-column Centre-align">{platform}</td>
+              <td className="Small-column">{punctuality}</td>
+              <td className="Large-column">{delayReason}</td>
+            </tr>
+          </tbody>
       )
     });
 
     return (
         <div>
-          {head}
-          {body}
+          <table>
+            {head}
+            {body}
+          </table>
         </div>
     );
   }
