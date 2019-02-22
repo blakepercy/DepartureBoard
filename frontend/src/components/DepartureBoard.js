@@ -38,7 +38,17 @@ class DepartureBoard extends Component {
 
   formatServices(rawServices)
   {
-    return rawServices.service.map((service) => {
+    let head = (
+        <thead>
+        <th className="Small-column">Planned</th>
+        <th className="Medium-column">Destination</th>
+        <th className="Small-column">Platform</th>
+        <th className="Small-column">Expected</th>
+        <th className="Large-column">Comments</th>
+        </thead>
+    );
+
+    let body = rawServices.service.map((service) => {
       let departureTime = service.std;
       let punctuality = service.etd.toString().toLowerCase();
       let platform = service.platform;
@@ -49,17 +59,26 @@ class DepartureBoard extends Component {
       return (
           <div key={uuid.v4()}>
             <table>
-              <tr>
-                <td className="Small-column">{departureTime}</td>
-                <td className="Medium-column">{destination}</td>
-                <td className="Small-column">{platform}</td>
-                <td className="Small-column">{punctuality}</td>
-                <td className="Large-column">{delayReason}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td className="Small-column">{departureTime}</td>
+                  <td className="Medium-column">{destination}</td>
+                  <td className="Small-column">{platform}</td>
+                  <td className="Small-column">{punctuality}</td>
+                  <td className="Large-column">{delayReason}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
       )
     });
+
+    return (
+        <div>
+          {head}
+          {body}
+        </div>
+    );
   }
 
   async updateDepartureTimes() {
@@ -117,16 +136,8 @@ class DepartureBoard extends Component {
       location = "MTB";
     }
 
-    console.log("Updating Location: ", location);
-    this.state.startingLocation.updateLocation(location);
-
     this.setState({
-      locationName: this.state.startingLocation.render()
-    });
-
-    this.setState({
-      crs: location,
-      trainServices: "Loading..."
+      crs: location
     });
 
     let departureBoardClient = new DepartureBoardClient();
