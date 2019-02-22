@@ -107,7 +107,7 @@ class DepartureBoard extends Component {
     clearInterval(this.timerID);
   }
 
-  updateLocation() {
+  async updateLocation() {
     let location = "";
     if (this.state.crs === "MTB")
     {
@@ -128,6 +128,11 @@ class DepartureBoard extends Component {
       crs: location,
       trainServices: "Loading..."
     });
+
+    let departureBoardClient = new DepartureBoardClient();
+    await departureBoardClient.getDepartures(this.state.crs);
+
+    this.updateDepartureTimes();
   }
 
   render() {
