@@ -18,7 +18,7 @@ class NreLogo extends React.Component {
 
   render() {
     return (
-        <div className="Right-align Right-padding Top-padding">
+        <div className="Centre-align">
           <a href="http://www.nationalrail.co.uk/" target="_blank"
              rel="noopener noreferrer">
             <img src={nreLogo} height={this.height} alt={"National Rail"

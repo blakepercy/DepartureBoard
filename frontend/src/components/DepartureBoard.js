@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import Clock from './Clock';
 import StartingLocation from "./StartingLocation";
 import DepartureBoardClient from './DepartureBoardClient';
+import CrsForm from './CrsForm';
 import uuid from "uuid";
+import NreLogo from "./NreLogo";
 
 class DepartureBoard extends Component {
   constructor(props) {
     super(props);
     this.state =
         {
+          location: "",
           locationName: null,
           trainServices: [],
           stationBoardResult: null,
@@ -84,14 +87,16 @@ class DepartureBoard extends Component {
   async updateDepartureTimes() {
     let departureBoardClient = new DepartureBoardClient();
     const departuresResponse = await departureBoardClient.getDepartures(this.state.crs);
-    console.log("updateDepartureTimes: ", departuresResponse);
 
     this.setState({
       startingLocation: new StartingLocation(
           {
-            location: this.getLocation(departuresResponse),
-            update: this.updateLocation
+            location: this.getLocation(departuresResponse)
           })
+    });
+
+    this.setState({
+      location: this.getLocation(departuresResponse)
     });
 
     this.setState({
@@ -126,7 +131,7 @@ class DepartureBoard extends Component {
     clearInterval(this.timerID);
   }
 
-  async updateLocation() {
+  toggleLocation() {
     let location = "";
     if (this.state.crs === "MTB")
     {
@@ -135,6 +140,18 @@ class DepartureBoard extends Component {
     else {
       location = "MTB";
     }
+    this.updateLocation(location);
+  }
+
+  async updateLocation(location) {
+    // let location = "";
+    // if (this.state.crs === "MTB")
+    // {
+    //   location = "DBY";
+    // }
+    // else {
+    //   location = "MTB";
+    // }
 
     this.setState({
       crs: location
@@ -153,10 +170,14 @@ class DepartureBoard extends Component {
         <div>
           <div className="Location-header">
             {locationName}
-            <Clock/>
+            <CrsForm locationCallback={this.updateLocation}/>
           </div>
           <div>
             {trainServices}
+          </div>
+          <div className="Top-padding">
+            <Clock/>
+            <NreLogo height={40}/>
           </div>
         </div>
     );

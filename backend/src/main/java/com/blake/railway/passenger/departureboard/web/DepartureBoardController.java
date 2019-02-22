@@ -21,13 +21,6 @@ public class DepartureBoardController
         this.ldbService = ldbService;
     }
 
-//    @RequestMapping("/departures")
-//    @CrossOrigin(origins = "*")
-//    public StationBoardResponseType getDepartures()
-//    {
-//        return ldbService.getDepartureBoard();
-//    }
-
     @RequestMapping(value = "/departures/{crs}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
     public StationBoardResponseType getDepartures(@PathVariable("crs") final String crs)
