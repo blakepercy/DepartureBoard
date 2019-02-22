@@ -23,7 +23,6 @@ class DepartureBoardClient extends React.Component {
     .then(data => data.getStationBoardResult)
     .then(stationBoardResult => {
       this.state.stationBoardResult = stationBoardResult;
-      // this.setState({stationBoardResult: stationBoardResult});
     })
     .catch(error => console.log(error.toString()));
 
