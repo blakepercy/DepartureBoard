@@ -39,7 +39,6 @@ class DepartureBoard extends Component {
   formatServices(rawServices)
   {
     return rawServices.service.map((service) => {
-      let type = service.serviceType.toString().toLowerCase();
       let departureTime = service.std;
       let punctuality = service.etd.toString().toLowerCase();
       let platform = service.platform;
