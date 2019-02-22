@@ -37,7 +37,7 @@ public class DepartureBoardApplicationTest
 
         DepartureBoardController departureBoardController = new DepartureBoardController();
         departureBoardController.setLdbService(ldbService);
-        final StationBoardResponseType departureBoard = departureBoardController.getDepartures();
+        final StationBoardResponseType departureBoard = departureBoardController.getDepartures("MTB");
         logger.info(JsonUtils.serialise(departureBoard));
         assertThat(departureBoard.getGetStationBoardResult().getCrs(), is(equalTo("MTB")));
     }

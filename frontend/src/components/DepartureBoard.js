@@ -11,7 +11,8 @@ class DepartureBoard extends Component {
           locationName: null,
           trainServices: [],
           stationBoardResult: null,
-          startingLocation: null
+          startingLocation: null,
+          crs: "MTB"
         };
 
     // This binding is necessary to make `this` work in the callback
@@ -58,7 +59,7 @@ class DepartureBoard extends Component {
 
   async updateDepartureTimes() {
     let departureBoardClient = new DepartureBoardClient();
-    const departuresResponse = await departureBoardClient.getDepartures();
+    const departuresResponse = await departureBoardClient.getDepartures(this.state.crs);
     console.log("updateDepartureTimes: ", departuresResponse);
 
     this.setState({

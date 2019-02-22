@@ -5,7 +5,9 @@ import com.thalesgroup.rtti._2017_10_01.ldb.StationBoardResponseType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,10 +21,17 @@ public class DepartureBoardController
         this.ldbService = ldbService;
     }
 
-    @RequestMapping("/departures")
+//    @RequestMapping("/departures")
+//    @CrossOrigin(origins = "*")
+//    public StationBoardResponseType getDepartures()
+//    {
+//        return ldbService.getDepartureBoard();
+//    }
+
+    @RequestMapping(value = "/departures/{crs}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public StationBoardResponseType getDepartures()
+    public StationBoardResponseType getDepartures(@PathVariable("crs") final String crs)
     {
-        return ldbService.getDepartureBoard();
+        return ldbService.getDepartureBoard(crs);
     }
 }
