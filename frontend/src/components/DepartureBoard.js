@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import Clock from './Clock';
 import StartingLocation from "./StartingLocation";
-
-const BACKEND_PORT = process.env.REACT_APP_PORT || 8080;
+import DepartureBoardClient from './DepartureBoardClient';
 
 class DepartureBoard extends Component {
   constructor(props) {
@@ -11,7 +10,24 @@ class DepartureBoard extends Component {
         {
           locationName: null,
           trainServices: [],
+          stationBoardResult: null
         };
+  }
+
+  getLocation(departuresResponse) {
+    return departuresResponse.locationName;
+  }
+
+  trainsAreRunning(departuresResponse) {
+    if (departuresResponse.trainServices != null) {
+      return true;
+    }
+  }
+
+  bussesAreRunning(departuresResponse) {
+    if (departuresResponse.busServices != null) {
+      return true;
+    }
   }
 
   formatServices(rawServices)
@@ -36,35 +52,28 @@ class DepartureBoard extends Component {
     });
   }
 
-  updateDepartureTimes()
-  {
-    // Use localhost when in development
-    let host = "";
-    if (process.env.NODE_ENV === "development") {
-      host = "http://localhost:" + BACKEND_PORT;
+  async updateDepartureTimes() {
+    let departureBoardClient = new DepartureBoardClient();
+    const departuresResponse = await departureBoardClient.getDepartures();
+    console.log("updateDepartureTimes: ", departuresResponse);
+
+    this.setState({
+      locationName: <StartingLocation
+          location={this.getLocation(departuresResponse)}/>
+    });
+
+    // Determine if trains or buses are running
+    let rawServices = null;
+    if (this.trainsAreRunning(departuresResponse)) {
+      rawServices = departuresResponse.trainServices;
+    }
+    else if (this.bussesAreRunning(departuresResponse)) {
+      rawServices = departuresResponse.busServices;
     }
 
-    fetch(host + "/departures")
-    .then(response => response.json())
-    .then(data => {
-      this.setState({
-        locationName: <StartingLocation location={data.getStationBoardResult.locationName} />
-      });
-
-      // Determine if trains or buses are running
-      let rawServices = null;
-      if (data.getStationBoardResult.trainServices != null) {
-        rawServices = data.getStationBoardResult.trainServices;
-      }
-      else if (data.getStationBoardResult.busServices != null) {
-        rawServices = data.getStationBoardResult.busServices;
-      }
-
-      // Extract the interesting information
-      let formattedServices = this.formatServices(rawServices);
-      this.setState({trainServices: formattedServices})
-    })
-    .catch(error => this.setState({locationName: error.toString()}));
+    // Extract the interesting information
+    let formattedServices = this.formatServices(rawServices);
+    this.setState({trainServices: formattedServices})
   }
 
   componentDidMount() {
