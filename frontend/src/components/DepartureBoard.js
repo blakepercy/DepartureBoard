@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Clock from './Clock';
-import StartingLocation from "./StartingLocation";
 import DepartureBoardClient from './DepartureBoardClient';
 import CrsForm from './CrsForm';
-import uuid from "uuid";
 import NreLogo from "./NreLogo";
+import TrainTable from "./TrainTable";
+import CurrentStation from "./CurrentStation";
 
 class DepartureBoard extends Component {
   constructor(props) {
@@ -12,18 +12,17 @@ class DepartureBoard extends Component {
     this.state =
         {
           location: "",
-          locationName: null,
           trainServices: [],
-          stationBoardResult: null,
-          startingLocation: null,
           crs: "MTB"
         };
 
+    this.departureBoardClient = new DepartureBoardClient();
+
     // This binding is necessary to make `this` work in the callback
-    this.updateLocation = this.updateLocation.bind(this);
+    this.updateCrs = this.updateCrs.bind(this);
   }
 
-  getLocation(departuresResponse) {
+  getLocationFromDeparturesResponse(departuresResponse) {
     return departuresResponse.locationName;
   }
 
@@ -39,68 +38,12 @@ class DepartureBoard extends Component {
     }
   }
 
-  formatServices(rawServices)
-  {
-    let head = (
-        <thead>
-          <tr>
-            <th className="Small-column">Planned</th>
-            <th className="Medium-column">Destination</th>
-            <th className="Small-column Centre-align">Platform</th>
-            <th className="Small-column">Expected</th>
-            <th className="Large-column">Comments</th>
-          </tr>
-        </thead>
-    );
-
-    let body = rawServices.service.map((service) => {
-      let departureTime = service.std;
-      let punctuality = service.etd.toString().toLowerCase();
-      let platform = service.platform;
-      let destination = service.destination.location.map((location) => {
-        return (location.locationName)
-      });
-      let delayReason = service.delayReason;
-      return (
-          <tbody key={uuid.v4()}>
-            <tr>
-              <td className="Small-column">{departureTime}</td>
-              <td className="Medium-column">{destination}</td>
-              <td className="Small-column Centre-align">{platform}</td>
-              <td className="Small-column">{punctuality}</td>
-              <td className="Large-column">{delayReason}</td>
-            </tr>
-          </tbody>
-      )
-    });
-
-    return (
-        <div>
-          <table>
-            {head}
-            {body}
-          </table>
-        </div>
-    );
-  }
-
   async updateDepartureTimes() {
-    let departureBoardClient = new DepartureBoardClient();
-    const departuresResponse = await departureBoardClient.getDepartures(this.state.crs);
+    const departuresResponse = await this.departureBoardClient.getDepartures(this.state.crs);
 
+    // Set the current station
     this.setState({
-      startingLocation: new StartingLocation(
-          {
-            location: this.getLocation(departuresResponse)
-          })
-    });
-
-    this.setState({
-      location: this.getLocation(departuresResponse)
-    });
-
-    this.setState({
-      locationName: this.state.startingLocation.render()
+      location: this.getLocationFromDeparturesResponse(departuresResponse)
     });
 
     // Determine if trains or buses are running
@@ -112,13 +55,11 @@ class DepartureBoard extends Component {
       rawServices = departuresResponse.busServices;
     }
 
-    // Extract the interesting information
-    let formattedServices = this.formatServices(rawServices);
-    this.setState({trainServices: formattedServices})
+    // Set the table of departing trains
+    this.setState({trainServices: new TrainTable().render(rawServices)})
   }
 
   componentDidMount() {
-    console.log(process.env);
     this.updateDepartureTimes();
 
     this.timerID = setInterval(
@@ -131,49 +72,25 @@ class DepartureBoard extends Component {
     clearInterval(this.timerID);
   }
 
-  toggleLocation() {
-    let location = "";
-    if (this.state.crs === "MTB")
-    {
-      location = "DBY";
-    }
-    else {
-      location = "MTB";
-    }
-    this.updateLocation(location);
-  }
-
-  async updateLocation(location) {
-    // let location = "";
-    // if (this.state.crs === "MTB")
-    // {
-    //   location = "DBY";
-    // }
-    // else {
-    //   location = "MTB";
-    // }
-
+  async updateCrs(crs) {
     this.setState({
-      crs: location
+      crs: crs
     });
 
-    let departureBoardClient = new DepartureBoardClient();
-    await departureBoardClient.getDepartures(this.state.crs);
+    await this.departureBoardClient.getDepartures(this.state.crs);
 
     this.updateDepartureTimes();
   }
 
   render() {
-    const {locationName, trainServices} = this.state;
-
     return (
         <div>
           <div className="Location-header">
-            {locationName}
-            <CrsForm locationCallback={this.updateLocation}/>
+            {new CurrentStation().render(this.state.location)}
+            <CrsForm crsCallback={this.updateCrs}/>
           </div>
           <div>
-            {trainServices}
+            {this.state.trainServices}
           </div>
           <div className="Top-padding">
             <Clock/>

@@ -4,8 +4,8 @@ class CrsForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {value: "MTB"};
-    this.locationCallback = props.locationCallback;
+    this.state = {crs: "MTB"};
+    this.crsCallback = props.crsCallback;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -13,12 +13,12 @@ class CrsForm extends React.Component {
 
   handleChange(event)
   {
-    this.setState({value: event.target.value});
+    this.setState({crs: event.target.value});
   }
 
   handleSubmit(event)
   {
-    this.locationCallback(this.state.value);
+    this.crsCallback(this.state.crs);
     event.preventDefault();
   }
 
@@ -27,7 +27,7 @@ class CrsForm extends React.Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <input className="Centre-align" type="text" value={this.state.value} onChange={this.handleChange} onSubmit={this.handleSubmit} />
+              <input className="Centre-align" type="text" value={this.state.crs} onChange={this.handleChange} onSubmit={this.handleSubmit} />
             </label>
           </form>
         </div>
