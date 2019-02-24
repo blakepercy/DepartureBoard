@@ -24,15 +24,15 @@ class CurrentStation extends React.Component {
     this.setState(
       {
         station: (
-          <form onSubmit={this.handleSubmit}>
-            <select className="Location-header" multiple={true} value={this.state.selectedStationCrs} onChange={this.handleChange}>
-              <option value="MTB">Matlock Bath</option>
-              <option value="DBY">Derby</option>
-              <option value="SLB">Saltburn</option>
-              <option value="MBR">Middlesbrough</option>
-              <option value="YRK">York</option>
-            </select>
-          </form>
+              <form onSubmit={this.handleSubmit}>
+                <select className="Location-selector" multiple={true} value={this.state.selectedStationCrs} onChange={this.handleChange}>
+                  <option value="MTB">Matlock Bath</option>
+                  <option value="DBY">Derby</option>
+                  <option value="SLB">Saltburn</option>
+                  <option value="MBR">Middlesbrough</option>
+                  <option value="YRK">York</option>
+                </select>
+              </form>
         )
       }
     );

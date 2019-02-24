@@ -33,6 +33,14 @@
   color: seagreen;
 }
 
+.Location-selector {
+  background-color: #222;
+  padding: 2px;
+  color: seagreen;
+  font-size: large;
+  font-weight: bold;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
