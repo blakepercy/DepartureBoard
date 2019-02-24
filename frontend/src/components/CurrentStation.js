@@ -29,6 +29,8 @@ class CurrentStation extends React.Component {
               <option value="MTB">Matlock Bath</option>
               <option value="DBY">Derby</option>
               <option value="SLB">Saltburn</option>
+              <option value="MBR">Middlesbrough</option>
+              <option value="YRK">York</option>
             </select>
           </form>
         )
