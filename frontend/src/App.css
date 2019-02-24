@@ -19,7 +19,7 @@
 }
 
 .Top-padding {
-  padding-top: 5%;
+  padding-top: 2%;
 }
 
 .Padding {
@@ -28,9 +28,17 @@
 
 .Location-header {
   background-color: #222;
-  height: 105px;
+  height: 70px;
   padding: 2px;
   color: seagreen;
+}
+
+.Location-selector {
+  background-color: #222;
+  padding: 2px;
+  color: seagreen;
+  font-size: large;
+  font-weight: bold;
 }
 
 table {
@@ -39,10 +47,17 @@ table {
   width: 100%;
 }
 
-td, th {
+td {
   border-bottom: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+}
+
+th {
+  text-align: left;
+  padding-left: 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 tr:nth-child(even) {

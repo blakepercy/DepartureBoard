@@ -26,8 +26,6 @@ class DepartureBoardClient extends React.Component {
     })
     .catch(error => console.log(error.toString()));
 
-    console.log("Getting here: ", this.state.stationBoardResult);
-
     return this.state.stationBoardResult;
   }
 
