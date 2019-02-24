@@ -2,18 +2,6 @@ import React from 'react';
 import uuid from "uuid";
 
 class TrainTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-
   render(rawServices) {
     let head = (
         <thead>
