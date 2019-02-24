@@ -11,17 +11,17 @@ class DepartureBoard extends Component {
     this.state =
         {
           location: "Derby",
-          trainServices: [],
           crs: "DBY"
         };
 
     this.departureBoardClient = new DepartureBoardClient();
-    this.trainTable = new TrainTable();
+    this.trainTable = null;
     this.currentStation = new CurrentStation(this.state.location);
 
     // This binding is necessary to make `this` work in the callback
     this.updateCrs = this.updateCrs.bind(this);
     this.stationMount = this.stationMount.bind(this);
+    this.trainTableMount = this.trainTableMount.bind(this);
   }
 
   getLocationFromDeparturesResponse(departuresResponse) {
@@ -59,8 +59,8 @@ class DepartureBoard extends Component {
       rawServices = departuresResponse.busServices;
     }
 
-    // Set the table of departing trains
-    this.setState({trainServices: this.trainTable.render(rawServices)})
+    // Update the table of departing trains
+    this.trainTable.updateTrainTable(rawServices);
   }
 
   componentDidMount() {
@@ -90,6 +90,10 @@ class DepartureBoard extends Component {
     this.currentStation = stationObject;
   }
 
+  trainTableMount(trainTableObject) {
+    this.trainTable = trainTableObject;
+  }
+
   render() {
     return (
         <div>
@@ -97,7 +101,7 @@ class DepartureBoard extends Component {
             <CurrentStation station={this.state.location} mountCallback={this.stationMount} changeCrsCallback={this.updateCrs}/>
           </div>
           <div>
-            {this.state.trainServices}
+            <TrainTable mountedCallback={this.trainTableMount} />
           </div>
           <div className="Top-padding">
             <Clock/>

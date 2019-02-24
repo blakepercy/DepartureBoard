@@ -2,7 +2,21 @@ import React from 'react';
 import uuid from "uuid";
 
 class TrainTable extends React.Component {
-  render(rawServices) {
+  constructor(props) {
+    super(props);
+    this.mountedCallback = props.mountedCallback;
+
+    this.state = {
+      head: null,
+      body: null
+    };
+  }
+
+  componentDidMount() {
+    this.mountedCallback(this);
+  }
+
+  updateTrainTable(rawServices) {
     let head = (
         <thead>
         <tr>
@@ -36,11 +50,18 @@ class TrainTable extends React.Component {
       )
     });
 
+    this.setState({
+      head: head,
+      body: body
+    });
+  }
+
+  render() {
     return (
         <div>
           <table>
-            {head}
-            {body}
+            {this.state.head}
+            {this.state.body}
           </table>
         </div>
     );
