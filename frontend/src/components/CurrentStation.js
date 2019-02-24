@@ -25,7 +25,7 @@ class CurrentStation extends React.Component {
       {
         station: (
               <form onSubmit={this.handleSubmit}>
-                <select className="Location-selector" multiple={true} value={this.state.selectedStationCrs} onChange={this.handleChange}>
+                <select className="Location-selector" multiple={false} value={this.state.selectedStationCrs} onChange={this.handleChange}>
                   <option value="MTB">Matlock Bath</option>
                   <option value="DBY">Derby</option>
                   <option value="SLB">Saltburn</option>
