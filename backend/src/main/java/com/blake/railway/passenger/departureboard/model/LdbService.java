@@ -48,12 +48,9 @@ public class LdbService
         return ldbService.getDepartureBoard(getBoardRequestParams);
     }
 
-    public StationBoardResponseType getDepartureBoard(final String crs) {
+    public StationBoardResponseType getDepartureBoard(final String crs, final int rows) {
         this.getBoardRequestParams.setCrs(crs);
+        this.getBoardRequestParams.setNumRows(rows);
         return ldbService.getDepartureBoard(getBoardRequestParams);
     }
-
-
-
-
 }

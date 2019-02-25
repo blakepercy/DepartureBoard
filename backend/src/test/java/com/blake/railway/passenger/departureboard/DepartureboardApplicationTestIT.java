@@ -28,12 +28,21 @@ public class DepartureboardApplicationTestIT
     }
 
     @Test
-    public void getDepartureBoardTest() throws Exception
+    public void getDepartureBoardTestJustCrs() throws Exception
     {
         mockMvc.perform(get("/departures/MTB"))
                .andDo(print())
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.getStationBoardResult.crs").value(equalTo("MTB")));
+    }
+
+    @Test
+    public void getDepartureBoardTestCrsAndRows() throws Exception
+    {
+        mockMvc.perform(get("/departures/DBY?rows=8"))
+               .andDo(print())
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.getStationBoardResult.crs").value(equalTo("DBY")));
     }
 
 }
