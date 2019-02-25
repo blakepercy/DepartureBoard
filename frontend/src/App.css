@@ -41,6 +41,14 @@
   font-weight: bold;
 }
 
+.Row-selector {
+  background-color: #222;
+  padding: 2px;
+  color: seagreen;
+  font-size: medium;
+  font-weight: bold;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

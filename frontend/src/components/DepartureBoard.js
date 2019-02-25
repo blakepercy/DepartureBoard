@@ -4,6 +4,7 @@ import DepartureBoardClient from './DepartureBoardClient';
 import NreLogo from "./NreLogo";
 import TrainTable from "./TrainTable";
 import CurrentStation from "./CurrentStation";
+import RowQuantitySelector from "./RowQuantitySelector";
 
 class DepartureBoard extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class DepartureBoard extends Component {
     this.state =
         {
           location: "Derby",
-          crs: "DBY"
+          crs: "DBY",
+          rows: 5
         };
 
     this.departureBoardClient = new DepartureBoardClient();
@@ -41,7 +43,7 @@ class DepartureBoard extends Component {
   }
 
   async updateDepartureTimes() {
-    const departuresResponse = await this.departureBoardClient.getDepartures(this.state.crs);
+    const departuresResponse = await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
 
     // Set the current station
     this.setState({
@@ -81,8 +83,16 @@ class DepartureBoard extends Component {
       crs: crs
     });
 
-    await this.departureBoardClient.getDepartures(this.state.crs);
+    await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
+    this.updateDepartureTimes();
+  }
 
+  async updateRows(rows) {
+    this.setState({
+      rows: rows
+    });
+
+    await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
     this.updateDepartureTimes();
   }
 
@@ -102,6 +112,9 @@ class DepartureBoard extends Component {
           </div>
           <div>
             <TrainTable mountedCallback={this.trainTableMount} />
+          </div>
+          <div className="Left-align Padding">
+            <RowQuantitySelector departureBoard={this} />
           </div>
           <div className="Top-padding">
             <Clock/>
