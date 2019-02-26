@@ -18,10 +18,10 @@ class DepartureBoard extends Component {
 
     this.departureBoardClient = new DepartureBoardClient();
     this.trainTable = null;
-    // this.currentStation = new CurrentStation(this.state.location);
 
     // This binding is necessary to make `this` work in the callback
     this.updateCrs = this.updateCrs.bind(this);
+    this.updateRows = this.updateRows.bind(this);
     this.trainTableMount = this.trainTableMount.bind(this);
   }
 
@@ -111,7 +111,7 @@ class DepartureBoard extends Component {
             <TrainTable mountedCallback={this.trainTableMount} />
           </div>
           <div className="Left-align Padding">
-            <RowQuantitySelector departureBoard={this} />
+            <RowQuantitySelector rowCount={this.state.rows} updateRowState={this.updateRows} />
           </div>
           <div className="Top-padding">
             <Clock/>
