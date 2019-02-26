@@ -4,31 +4,21 @@ class CurrentStation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedStationCrs: "Default"
-    };
-
-    this.departureBoard = props.departureBoard;
-
+    this.selectedStationCrs = props.crs;
+    this.updateDepartureBoardCrs = props.updateCrs;
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      selectedStationCrs: this.departureBoard.getCrs()
-    });
-  }
-
   async handleChange(event) {
-    await this.setState({selectedStationCrs: event.target.value});
-    this.departureBoard.updateCrs(this.state.selectedStationCrs);
+    this.selectedStationCrs = event.target.value;
+    this.updateDepartureBoardCrs(event.target.value);
   }
 
   render() {
     return (
         <h2>
           <form onSubmit={this.handleSubmit}>
-            <select className="Location-selector" multiple={false} value={this.state.selectedStationCrs} onChange={this.handleChange}>
+            <select className="Location-selector" multiple={false} value={this.selectedStationCrs} onChange={this.handleChange}>
               <option value="MTB">Matlock Bath</option>
               <option value="DBY">Derby</option>
               <option value="AMB">Ambergate</option>

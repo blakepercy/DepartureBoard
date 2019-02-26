@@ -11,9 +11,8 @@ class DepartureBoard extends Component {
     super(props);
     this.state =
         {
-          location: "Derby",
           crs: "DBY",
-          rows: 5
+          rows: 10
         };
 
     this.departureBoardClient = new DepartureBoardClient();
@@ -43,11 +42,6 @@ class DepartureBoard extends Component {
 
   async updateDepartureTimes() {
     const departuresResponse = await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
-
-    // Set the current station
-    this.setState({
-      location: this.getLocationFromDeparturesResponse(departuresResponse)
-    });
 
     // Determine if trains or buses are running
     let rawServices = null;
@@ -84,10 +78,6 @@ class DepartureBoard extends Component {
     this.updateDepartureTimes();
   }
 
-  getCrs() {
-    return this.state.crs;
-  }
-
   async updateRows(rows) {
     this.setState({
       rows: rows
@@ -105,7 +95,7 @@ class DepartureBoard extends Component {
     return (
         <div>
           <div className="Location-header">
-            <CurrentStation departureBoard={this}/>
+            <CurrentStation crs={this.state.crs} updateCrs={this.updateCrs} />
           </div>
           <div>
             <TrainTable mountedCallback={this.trainTableMount} />
