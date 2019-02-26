@@ -18,11 +18,10 @@ class DepartureBoard extends Component {
 
     this.departureBoardClient = new DepartureBoardClient();
     this.trainTable = null;
-    this.currentStation = new CurrentStation(this.state.location);
+    // this.currentStation = new CurrentStation(this.state.location);
 
     // This binding is necessary to make `this` work in the callback
     this.updateCrs = this.updateCrs.bind(this);
-    this.stationMount = this.stationMount.bind(this);
     this.trainTableMount = this.trainTableMount.bind(this);
   }
 
@@ -49,8 +48,6 @@ class DepartureBoard extends Component {
     this.setState({
       location: this.getLocationFromDeparturesResponse(departuresResponse)
     });
-
-    this.currentStation.setStation(this.state.location);
 
     // Determine if trains or buses are running
     let rawServices = null;
@@ -87,6 +84,10 @@ class DepartureBoard extends Component {
     this.updateDepartureTimes();
   }
 
+  getCrs() {
+    return this.state.crs;
+  }
+
   async updateRows(rows) {
     this.setState({
       rows: rows
@@ -94,10 +95,6 @@ class DepartureBoard extends Component {
 
     await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
     this.updateDepartureTimes();
-  }
-
-  stationMount(stationObject) {
-    this.currentStation = stationObject;
   }
 
   trainTableMount(trainTableObject) {
@@ -108,7 +105,7 @@ class DepartureBoard extends Component {
     return (
         <div>
           <div className="Location-header">
-            <CurrentStation station={this.state.location} mountCallback={this.stationMount} changeCrsCallback={this.updateCrs}/>
+            <CurrentStation departureBoard={this}/>
           </div>
           <div>
             <TrainTable mountedCallback={this.trainTableMount} />

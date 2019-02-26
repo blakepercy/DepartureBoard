@@ -27,16 +27,10 @@ class RowQuantitySelector extends React.Component {
           <label><b>Rows to Display: </b></label>
           <select className="Row-selector" multiple={false} value={this.state.rowCount} onChange={this.handleChange}>
             <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
             <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
             <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
           </select>
         </form>
     );
