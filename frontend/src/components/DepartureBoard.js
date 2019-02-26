@@ -69,20 +69,21 @@ class DepartureBoard extends Component {
     clearInterval(this.timerID);
   }
 
-  async updateCrs(crs) {
+  updateCrs(crs) {
     this.setState({
       crs: crs
     });
-
-    await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
-    this.updateDepartureTimes();
+    this.fullUpdate();
   }
 
-  async updateRows(rows) {
+  updateRows(rows) {
     this.setState({
       rows: rows
     });
+    this.fullUpdate();
+  }
 
+  async fullUpdate() {
     await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
     this.updateDepartureTimes();
   }

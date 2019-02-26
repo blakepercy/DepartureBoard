@@ -7,7 +7,6 @@ class TrainTable extends React.Component {
     this.mountedCallback = props.mountedCallback;
 
     this.state = {
-      head: null,
       body: null
     };
   }
@@ -16,19 +15,21 @@ class TrainTable extends React.Component {
     this.mountedCallback(this);
   }
 
-  updateTrainTable(rawServices) {
-    let head = (
+  TableHeader() {
+    return (
         <thead>
-        <tr>
-          <th className="Small-column">Planned</th>
-          <th className="Medium-column">Destination</th>
-          <th className="Small-column Centre-align">Platform</th>
-          <th className="Small-column">Expected</th>
-          <th className="Large-column">Comments</th>
-        </tr>
+          <tr>
+            <th className="Small-column">Planned</th>
+            <th className="Medium-column">Destination</th>
+            <th className="Small-column Centre-align">Platform</th>
+            <th className="Small-column">Expected</th>
+            <th className="Large-column">Comments</th>
+          </tr>
         </thead>
     );
+  }
 
+  updateTrainTable(rawServices) {
     let body = rawServices.service.map((service) => {
       let departureTime = service.std;
       let punctuality = service.etd.toString().toLowerCase();
@@ -39,19 +40,18 @@ class TrainTable extends React.Component {
       let delayReason = service.delayReason;
       return (
           <tbody key={uuid.v4()}>
-          <tr>
-            <td className="Small-column">{departureTime}</td>
-            <td className="Medium-column">{destination}</td>
-            <td className="Small-column Centre-align">{platform}</td>
-            <td className="Small-column">{punctuality}</td>
-            <td className="Large-column">{delayReason}</td>
-          </tr>
+            <tr>
+              <td className="Small-column">{departureTime}</td>
+              <td className="Medium-column">{destination}</td>
+              <td className="Small-column Centre-align">{platform}</td>
+              <td className="Small-column">{punctuality}</td>
+              <td className="Large-column">{delayReason}</td>
+            </tr>
           </tbody>
       )
     });
 
     this.setState({
-      head: head,
       body: body
     });
   }
@@ -60,7 +60,7 @@ class TrainTable extends React.Component {
     return (
         <div>
           <table>
-            {this.state.head}
+            <this.TableHeader />
             {this.state.body}
           </table>
         </div>
