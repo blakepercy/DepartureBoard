@@ -17,6 +17,7 @@ You can create a run configuration within your IDE that passes in your personal 
 ## To start the front-end
 Navigate to the 'frontend' directory and then run:
 ```bash
+yarn install
 yarn start
 ```
 
