@@ -4,57 +4,35 @@ class CurrentStation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      station: props.station,
-      selectedStationCrs: "Default"
-    };
-
-    this.mountCallback = props.mountCallback;
-    this.changeCrsCallback = props.changeCrsCallback;
-
+    this.selectedStationCrs = props.crs;
+    this.updateDepartureBoardCrs = props.updateCrs;
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    this.mountCallback(this);
-  }
-
-  handleClick(event) {
-    this.setState(
-      {
-        station: (
-              <form onSubmit={this.handleSubmit}>
-                <select className="Location-selector" multiple={true} value={this.state.selectedStationCrs} onChange={this.handleChange}>
-                  <option value="MTB">Matlock Bath</option>
-                  <option value="DBY">Derby</option>
-                  <option value="SLB">Saltburn</option>
-                  <option value="MBR">Middlesbrough</option>
-                  <option value="YRK">York</option>
-                </select>
-              </form>
-        )
-      }
-    );
   }
 
   async handleChange(event) {
-    await this.setState({selectedStationCrs: event.target.value});
-    this.handleClick(event);
-    this.changeCrsCallback(this.state.selectedStationCrs);
-  }
-
-  setStation(station) {
-    this.setState({
-      station: station
-    });
+    this.selectedStationCrs = event.target.value;
+    this.updateDepartureBoardCrs(event.target.value);
   }
 
   render() {
     return (
-        <div onClick={this.handleClick}>
-          <h2>{this.state.station}</h2>
-        </div>
+        <h2>
+          <form onSubmit={this.handleSubmit}>
+            <select className="Location-selector" multiple={false} value={this.selectedStationCrs} onChange={this.handleChange}>
+              <option value="MTB">Matlock Bath</option>
+              <option value="DBY">Derby</option>
+              <option value="AMB">Ambergate</option>
+              <option value="BLP">Belper</option>
+              <option value="DFI">Duffield</option>
+              <option value="YRK">York</option>
+              <option value="MBR">Middlesbrough</option>
+              <option value="SLB">Saltburn</option>
+              <option value="WDM">Windermere</option>
+              <option value="STP">London St Pancras</option>
+              <option value="PAD">London Paddington</option>
+            </select>
+          </form>
+        </h2>
     );
   }
 }

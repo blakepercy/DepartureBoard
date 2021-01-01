@@ -4,23 +4,23 @@ import DepartureBoardClient from './DepartureBoardClient';
 import NreLogo from "./NreLogo";
 import TrainTable from "./TrainTable";
 import CurrentStation from "./CurrentStation";
+import RowQuantitySelector from "./RowQuantitySelector";
 
 class DepartureBoard extends Component {
   constructor(props) {
     super(props);
     this.state =
         {
-          location: "Derby",
-          crs: "DBY"
+          crs: "DBY",
+          rows: 10
         };
 
     this.departureBoardClient = new DepartureBoardClient();
     this.trainTable = null;
-    this.currentStation = new CurrentStation(this.state.location);
 
     // This binding is necessary to make `this` work in the callback
     this.updateCrs = this.updateCrs.bind(this);
-    this.stationMount = this.stationMount.bind(this);
+    this.updateRows = this.updateRows.bind(this);
     this.trainTableMount = this.trainTableMount.bind(this);
   }
 
@@ -41,14 +41,7 @@ class DepartureBoard extends Component {
   }
 
   async updateDepartureTimes() {
-    const departuresResponse = await this.departureBoardClient.getDepartures(this.state.crs);
-
-    // Set the current station
-    this.setState({
-      location: this.getLocationFromDeparturesResponse(departuresResponse)
-    });
-
-    this.currentStation.setStation(this.state.location);
+    const departuresResponse = await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
 
     // Determine if trains or buses are running
     let rawServices = null;
@@ -76,18 +69,23 @@ class DepartureBoard extends Component {
     clearInterval(this.timerID);
   }
 
-  async updateCrs(crs) {
+  updateCrs(crs) {
     this.setState({
       crs: crs
     });
-
-    await this.departureBoardClient.getDepartures(this.state.crs);
-
-    this.updateDepartureTimes();
+    this.fullUpdate();
   }
 
-  stationMount(stationObject) {
-    this.currentStation = stationObject;
+  updateRows(rows) {
+    this.setState({
+      rows: rows
+    });
+    this.fullUpdate();
+  }
+
+  async fullUpdate() {
+    await this.departureBoardClient.getDepartures(this.state.crs, this.state.rows);
+    this.updateDepartureTimes();
   }
 
   trainTableMount(trainTableObject) {
@@ -98,10 +96,13 @@ class DepartureBoard extends Component {
     return (
         <div>
           <div className="Location-header">
-            <CurrentStation station={this.state.location} mountCallback={this.stationMount} changeCrsCallback={this.updateCrs}/>
+            <CurrentStation crs={this.state.crs} updateCrs={this.updateCrs} />
           </div>
           <div>
             <TrainTable mountedCallback={this.trainTableMount} />
+          </div>
+          <div className="Left-align Padding">
+            <RowQuantitySelector rowCount={this.state.rows} updateRowState={this.updateRows} />
           </div>
           <div className="Top-padding">
             <Clock/>

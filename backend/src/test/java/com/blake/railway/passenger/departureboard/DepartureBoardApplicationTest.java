@@ -31,13 +31,13 @@ public class DepartureBoardApplicationTest
         URL fileUrl = classLoader.getResource("StationBoardResult.json");
         if (fileUrl != null)
         {
-            Mockito.when(ldbService.getDepartureBoard())
+            Mockito.when(ldbService.getDepartureBoard("MTB", 5))
                    .thenReturn(JsonUtils.deserialise(StationBoardResponseType.class, new File(fileUrl.getFile())));
         }
 
         DepartureBoardController departureBoardController = new DepartureBoardController();
         departureBoardController.setLdbService(ldbService);
-        final StationBoardResponseType departureBoard = departureBoardController.getDepartures("MTB");
+        final StationBoardResponseType departureBoard = departureBoardController.getDepartures("MTB", 5);
         logger.info(JsonUtils.serialise(departureBoard));
         assertThat(departureBoard.getGetStationBoardResult().getCrs(), is(equalTo("MTB")));
     }

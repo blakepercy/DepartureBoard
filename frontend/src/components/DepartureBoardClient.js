@@ -11,14 +11,14 @@ class DepartureBoardClient extends React.Component {
         };
   }
 
-  async getDepartures(crs) {
+  async getDepartures(crs, rows) {
     // Use localhost when in development
     let host = "";
     if (process.env.NODE_ENV === "development") {
       host = "http://localhost:" + BACKEND_PORT;
     }
 
-    await fetch(host + "/departures/" + crs)
+    await fetch(host + "/departures/" + crs + "?rows=" + rows)
     .then(response => response.json())
     .then(data => data.getStationBoardResult)
     .then(stationBoardResult => {
